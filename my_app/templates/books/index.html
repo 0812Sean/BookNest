@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Books</h2>
+<div class="category-filter">
+    <label for="category-filter">Filter by Category:</label>
+    <select id="category-filter" name="category" onchange="window.location.href=this.value;">
+        <option value="{% url 'book-index' %}">All Categories</option>
+        {% for category, category_name in categories %}
+        <option value="{% url 'book-index' %}?category={{ category }}" {% if request.GET.category == category %}selected{% endif %}>
+            {{ category_name }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+<div class="book-container">
+    {% for book in books %}
+    <div class="book-item">
+        <a href="{% url 'book-detail' book.id %}" class="book-link">
+            <div class="book-cover">
+                {% if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" alt="Cover image of {{ book.title }}">
+                {% else %}
+                <img src="{% static 'images/main.webp' %}" alt="Default cover image">
+                {% endif %}
+                <div class="book-info">
+                    <p class="book-title">{{ book.title }}</p>
+                    <div class="book-rating">
+                        {% for i in "12345" %}
+                            {% if i|add:"0" <= book.rating %}
+                                <i class="fas fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="favorite-icon">
+                        <i class="fa-heart {% if request.user in book.favorited_by.all %}fas{% else %}far{% endif %}"
+                           data-book-id="{{ book.id }}"></i>
+                           <span class="favorite-count">{{ book.favorite_count }}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const heartIcons = document.querySelectorAll('.favorite-icon i');
+
+    heartIcons.forEach(icon => {
+        icon.addEventListener('click', function(event) {
+            event.preventDefault();
+            const bookId = this.getAttribute('data-book-id');
+            const iconElement = this;
+            const favoriteCountElement = iconElement.nextElementSibling;
+
+            fetch(`/books/${bookId}/toggle_favorite/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                credentials: 'same-origin',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.favorited) {
+                    iconElement.classList.remove('far');
+                    iconElement.classList.add('fas');
+                    favoriteCountElement.textContent = parseInt(favoriteCountElement.textContent) + 1;
+                } else {
+                    iconElement.classList.remove('fas');
+                    iconElement.classList.add('far');
+                    favoriteCountElement.textContent = parseInt(favoriteCountElement.textContent) - 1;
+                }
+            });
+        });
+    });
+});
+
+</script>
+{% endblock %}

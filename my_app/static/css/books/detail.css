@@ -1,0 +1,172 @@
+.detail-page .container {
+    display: flex;
+    align-items: flex-start;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Book cover styling */
+.detail-page .book-cover {
+    max-width: 200px;
+    margin-right: 20px;
+}
+
+.detail-page .book-cover img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Book details styling */
+.detail-page .book-details {
+    flex: 1;
+}
+
+.detail-page .book-details h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.detail-page .book-details p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.detail-page .book-details .book-rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    color: #FFD700;
+}
+
+.detail-page .book-details .book-rating i {
+    margin-right: 5px;
+}
+
+/* Button styling */
+.detail-page .gradient-btn,
+.detail-page .edit-btn,
+.detail-page .delete-btn,
+.detail-page .more-details-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.detail-page .gradient-btn {
+    background: linear-gradient(to right, rgb(104, 164, 135), #feb47b);
+    color: #fff;
+    border: none;
+}
+
+.detail-page .gradient-btn:hover {
+    background: linear-gradient(to right, #feb47b, rgb(104, 164, 135));
+}
+
+.detail-page .edit-btn {
+    background-color: transparent;
+    color: rgb(104, 164, 135);
+    border: 2px solid rgb(104, 164, 135);
+    margin-right: 20px; 
+}
+
+.detail-page .edit-btn:hover {
+    background-color: rgb(104, 164, 135);
+    color: #fff;
+}
+
+.detail-page .delete-btn {
+    background-color: transparent;
+    color: #feb47b;
+    border: 2px solid #feb47b;
+}
+
+.detail-page .delete-btn:hover {
+    background-color: #feb47b;
+    color: #fff;
+}
+
+/* More Details button with gradient border and text */
+.detail-page .more-details-btn {
+    background: linear-gradient(to right, rgb(104, 164, 135), #feb47b);
+    color: transparent; 
+    background-clip: text;
+    border-radius: 5px !important;
+    -webkit-background-clip: text;
+    border: 2px solid transparent; 
+    border-image: linear-gradient(to right, rgb(104, 164, 135), #feb47b); 
+    border-image-slice: 1; 
+}
+
+.detail-page .more-details-btn:hover {
+    background-color: rgb(104, 164, 135);
+    color: #fff; 
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    border-radius: 5px;
+}
+
+/* Comments section styling */
+.detail-page .comments-section {
+    margin-top: 30px;
+}
+
+.detail-page .comments-section h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.detail-page ul {
+    list-style: none;
+    padding: 0;
+}
+
+.detail-page ul li {
+    background: #f7f7f7;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.detail-page ul li p {
+    margin: 5px 0;
+}
+
+.detail-page ul li small {
+    color: #999;
+    font-size: 0.9em;
+}
+
+/* Form styling */
+.detail-page .form-container form {
+    margin-top: 20px;
+}
+
+.detail-page .form-container form input,
+.detail-page .form-container form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.detail-page .form-container form textarea {
+    height: 100px;
+    resize: vertical;
+}

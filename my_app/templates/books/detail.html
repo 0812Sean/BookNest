@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/books/detail.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
+{% endblock %}
+
+{% block content %}
+<div class="detail-page">
+    <div class="container">
+        <div class="book-cover">
+            {% if book.cover_image %}
+            <img src="{{ book.cover_image.url }}" alt="Cover image of {{ book.title }}">
+            {% else %}
+            <img src="{% static 'images/main.webp' %}" alt="Default cover image">
+            {% endif %}
+            <a href="https://www.google.com/search?q={{ book.title|urlencode }}+{{ book.author|urlencode }}" target="_blank" class="more-details-btn">More Details</a>
+        </div>
+
+        <div class="book-details">
+            <h1>{{ book.title }}</h1>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Category:</strong> {{ book.get_category_display }}</p> 
+            <p><strong>Description:</strong> {{ book.description }}</p>
+            <p><strong>Rating:</strong>
+                <span class="book-rating">
+                    {% for i in "12345" %}
+                        {% if i|add:"0" <= book.rating %}
+                            <i class="fas fa-star"></i> 
+                        {% else %}
+                            <i class="far fa-star"></i> 
+                        {% endif %}
+                    {% endfor %}
+                </span>
+            </p>
+            
+            <!-- Show Edit and Delete buttons only if the logged-in user is the uploader -->
+            {% if book.user == request.user %}
+            <a href="{% url 'book-update' book.id %}" class="edit-btn">Edit</a>
+            <a href="{% url 'book-delete' book.id %}" class="delete-btn">Delete</a>
+            {% endif %}
+            
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="comments-section">
+        <h2>Comments</h2>
+        {% if comments %}
+        <ul>
+            {% for comment in comments %}
+            <li>
+                <strong>{{ comment.user.username }}</strong> said: 
+                <p>{{ comment.content }}</p>
+                <p><small>{{ comment.created_at }}</small></p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <h3>Add a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="gradient-btn">Submit</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+        {% endif %}
+    </div>
+
+    <p><a href="{% url 'book-index' %}" class="gradient-btn">Back to All Books</a></p>
+</div>
+{% endblock %}

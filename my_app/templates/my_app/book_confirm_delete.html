@@ -1,0 +1,21 @@
+{% extends 'base.html' %}  
+{% load static %} 
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+<div class="page-header">
+  <h1 >Delete Book?</h1>
+  {% if book.cover_image %}
+  <img src="{{ book.cover_image.url }}" alt="Cover image of {{ book.title }}">
+  {% else %}
+  <img src="{% static 'images/main.webp' %}" alt="Default cover image">
+  {% endif %}</div>
+
+<h2>Are you sure you want to delete "{{ book.title }}"?</h2>
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  <a href="{% url 'book-detail' book.id %}" class="btn secondary">Cancel</a>
+  <button type="submit" class="btn danger">Yes - Delete!</button>
+</form>
+
+{% endblock %}
