@@ -1,21 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<style>
+    .background-container {
+        background-image: url('{% static "images/1234.gif" %}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height:90.2vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<section>
-    <h2>Welcome to the Book Nest</h2>
-    <p>Your one-stop solution to manage your book collection.</p>
-</section>
-
-{% if not user.is_authenticated %}
-<section>
-    <form action="{% url 'home' %}" method="post" class="login">
-      <h1>Login</h1>
-      {% csrf_token %} {{ form.as_p }}
-      <input type="hidden" name="next" value="{{ next }}" />
-      <button type="submit" class="btn submit">Login</button>
-    </form>
-  </section>
-  {% endif %}
-
-  {% endblock %}
-  
+<div class="background-container">
+    {% if not user.is_authenticated %}
+    <section>
+        <form action="{% url 'home' %}" method="post" class="login">
+          <h1>Login</h1>
+          {% csrf_token %} 
+          {{ form.as_p }}
+          <input type="hidden" name="next" value="{{ next }}" />
+          <button type="submit" class="btn submit">Login</button>
+        </form>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

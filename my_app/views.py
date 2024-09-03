@@ -24,17 +24,14 @@ def my_books(request):
         'favorite_books': favorite_books,
     })
 
-
-
 def book_index(request):
     category = request.GET.get('category')
     if category:
-        books = Book.objects.filter(category=category)
+        books = Book.objects.filter(category=category).order_by('created_at')
     else:
-        books = Book.objects.annotate(favorite_count=Count('favorited_by'))
+        books = Book.objects.annotate(favorite_count=Count('favorited_by')).order_by('created_at')
     categories = Book.CATEGORY_CHOICES
     return render(request, 'books/index.html', {'books': books, 'categories': categories})
-
 
 def book_detail(request, book_id):
     book = get_object_or_404(Book, id=book_id)
