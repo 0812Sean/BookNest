@@ -75,6 +75,16 @@ def toggle_favorite(request, book_id):
         favorited = True
     return JsonResponse({'favorited': favorited})
 
+@login_required
+def update_background_color(request):
+    if request.method == 'POST':
+        color = request.POST.get('background_color')
+        if color:
+            request.user.profile.background_color = color
+            request.user.profile.save()
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error'}, status=400)
 
 class BookCreate(LoginRequiredMixin, CreateView):
     model = Book

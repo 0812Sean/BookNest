@@ -13,6 +13,8 @@ urlpatterns = [
     path('books/<int:pk>/delete/', views.BookDelete.as_view(), name='book-delete'),
     path('signup/', views.signup, name='signup'),
     path('books/<int:book_id>/toggle_favorite/', views.toggle_favorite, name='toggle-favorite'),
+    path('update-background-color/', views.update_background_color, name='update-background-color'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

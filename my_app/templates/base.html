@@ -1,45 +1,97 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/bass.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>BookNest</title>
-    {% block head %} 
+    {% block head %}
     {% endblock %}
-  </head>
-  <body>
-    <header>
-      <div class="header-logo-container">
+</head>
+<body style="background-color: {{ user.profile.background_color|default:'#ffffff' }};">
+<header>
+    <div class="header-logo-container">
         <a href="/">
             <img src="{% static 'images/icon.jpeg' %}" alt="BookNest Logo" class="icon-small"/>
         </a>
-      </div>
-      <nav>
+    </div>
+    <nav>
         <ul>
-          {% if user.is_authenticated %}
+            {% if user.is_authenticated %}
             <li><a href="{% url 'book-index' %}">All Books</a></li>
             <li><a href="{% url 'book-create' %}">Add A Book</a></li>
-            <li><a href="{% url 'my-books' %}">My Books</a></li>            <li>
-            <form id="logout-form" method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit">Log out</button>
-            </form>  
-            </li> 
+            <li><a href="{% url 'my-books' %}">My Books</a></li>
+            <li>
+                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Log out</button>
+                </form>
+            </li>
+            <!-- Settings Dropdown -->
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn" id="settings-btn"><i class="fas fa-cog"></i> Settings</a>
+                <div class="dropdown-content">
+                    <label for="background-color-picker">Background Color:</label>
+                    <input type="color" id="background-color-picker" class="color-picker" value="{{ user.profile.background_color|default:'#ffffff' }}">
+                    <button id="save-color-btn">Save</button>
+                </div>
+            </li>
             {% else %}
             <li><a href="{% url 'book-index' %}">All Books</a></li>
             <li><a href="{% url 'home' %}">Login</a></li>
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          {% endif %}        
+            {% endif %}
         </ul>
-      </nav>
-    </header>
-    <main>
-     {% block content %} 
-     {% endblock %}
-     </main>
-  </body>
+    </nav>
+</header>
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdown = document.querySelector('.dropdown');
+    const settingsBtn = document.getElementById('settings-btn');
+    const colorPicker = document.getElementById('background-color-picker');
+    const saveButton = document.getElementById('save-color-btn');
+
+    settingsBtn.addEventListener('click', function() {
+        dropdown.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('show');
+        }
+    });
+
+    colorPicker.addEventListener('input', function() {
+        document.body.style.backgroundColor = colorPicker.value;
+    });
+
+    saveButton.addEventListener('click', function() {
+        const formData = new FormData();
+        formData.append('background_color', colorPicker.value);
+
+        fetch("{% url 'update-background-color' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                dropdown.classList.remove('show'); 
+            } else {
+                console.error('Failed to save background color.');
+            }
+        });
+    });
+});
+</script>
+</body>
 </html>
