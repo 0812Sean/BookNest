@@ -26,6 +26,7 @@
                 {% endif %}
                 <div class="book-info">
                     <p class="book-title">{{ book.title }}</p>
+                    <div class="book-meta">
                     <div class="book-rating">
                         {% for i in "12345" %}
                             {% if i|add:"0" <= book.rating %}
@@ -37,6 +38,7 @@
                         <i class="fa-heart {% if request.user in book.favorited_by.all %}fas{% else %}far{% endif %}"
                            data-book-id="{{ book.id }}"></i>
                            <span class="favorite-count">{{ book.favorite_count }}</span>
+                    </div>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ class Book(models.Model):
         ('Science Fiction', 'Science Fiction'),
         ('Romance', 'Romance'),
         ('Fantasy', 'Fantasy'),
+        ('Classic', 'Classic'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)

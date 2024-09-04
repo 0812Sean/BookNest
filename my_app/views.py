@@ -16,7 +16,7 @@ class Home(LoginView):
 
 @login_required
 def my_books(request):
-    user_books = Book.objects.filter(user=request.user).annotate(favorite_count=Count('favorited_by'))
+    user_books = Book.objects.filter(user=request.user).annotate(favorite_count=Count('favorited_by')).order_by('created_at')
     favorite_books = request.user.favorite_books.annotate(favorite_count=Count('favorited_by'))
     
     return render(request, 'my_books.html', {
