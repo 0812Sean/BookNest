@@ -38,7 +38,7 @@ class Comment(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    background_color = models.CharField(max_length=7, default="#ffffff")  # hex color code
+    background_color = models.CharField(max_length=7, default="#ffffff")
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
