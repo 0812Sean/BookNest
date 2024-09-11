@@ -1,1 +1,1 @@
-web: gunicorn BookNest.wsgi
+web: gunicorn booknest.wsgi
