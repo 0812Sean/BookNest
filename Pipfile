@@ -12,6 +12,7 @@ gunicorn = "*"
 dj-database-url = "*"
 pillow = "*"
 django-environ = "*"
+boto3 = "*"
 
 [dev-packages]
 
