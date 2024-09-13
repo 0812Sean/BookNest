@@ -55,3 +55,7 @@ main {
 .btn.submit:hover {
     background: linear-gradient(to right, #feb47b, rgb(104, 164, 135));
 }
+
+body{
+    overflow: hidden;
+}

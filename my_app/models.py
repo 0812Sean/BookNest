@@ -17,7 +17,7 @@ class Book(models.Model):
     title = models.CharField(max_length=150)
     author = models.CharField(max_length=200)
     description = models.TextField()
-    cover_image = models.ImageField(upload_to='cover_images/', max_length=555, blank=True, null=True) 
+    cover_image = models.ImageField(upload_to='cover_images/', blank=True, null=True)
     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)]) 
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES) 
     created_at = models.DateTimeField(auto_now_add=True)
