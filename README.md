@@ -6,6 +6,8 @@ BookNest is a web application designed to help users manage their book collectio
 
 ![Screenshot](my_app/static/images/readbook.gif)
 
+## To view this page, click [here](https://booknest-78163836fb53.herokuapp.com/).
+
 ## Features
 
 - User authentication (sign up, login, logout)
@@ -20,7 +22,7 @@ BookNest is a web application designed to help users manage their book collectio
 
 - Backend: Django (Python)
 - Frontend: HTML, CSS, JavaScript
-- Database: PostgreSQL
+- Database: PostgreSQL AWS
 - Authentication: Django's built-in user authentication
 - Styling: CSS, FontAwesome for icons
 
