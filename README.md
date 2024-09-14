@@ -22,7 +22,7 @@ BookNest is a web application designed to help users manage their book collectio
 
 - Backend: Django (Python)
 - Frontend: HTML, CSS, JavaScript
-- Database: PostgreSQL AWS
+- Database: PostgreSQL, AWS
 - Authentication: Django's built-in user authentication
 - Styling: CSS, FontAwesome for icons
 
